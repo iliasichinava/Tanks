@@ -1,0 +1,31 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GunDto {
+  ammo: Float!
+  calibre: Float!
+  range: Float!
+  rate: Float!
+}
+
+type Mutation {
+  createTank(country: String!, tank: String!): TankDto!
+}
+
+type Query {
+  getTanks: [TankDto!]!
+}
+
+type TankDto {
+  gun: GunDto!
+  name: String!
+  turret: TurretDto!
+}
+
+type TurretDto {
+  armor: Float!
+  elevation: Float!
+  rotationSpeed: Float!
+  stabilization: Boolean!
+}
