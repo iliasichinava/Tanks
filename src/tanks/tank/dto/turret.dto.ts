@@ -1,7 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { DTO } from './interface';
 
 @ObjectType()
-export class TurretDto {
+export class TurretDto implements DTO {
+  @Field()
+  id: number;
+
   @Field()
   armor: number;
 

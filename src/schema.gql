@@ -5,6 +5,7 @@
 type GunDto {
   ammo: Float!
   calibre: Float!
+  id: Float!
   range: Float!
   rate: Float!
 }
@@ -19,6 +20,7 @@ type Query {
 
 type TankDto {
   gun: GunDto!
+  id: Float!
   name: String!
   turret: TurretDto!
 }
@@ -26,6 +28,7 @@ type TankDto {
 type TurretDto {
   armor: Float!
   elevation: Float!
+  id: Float!
   rotationSpeed: Float!
   stabilization: Boolean!
 }

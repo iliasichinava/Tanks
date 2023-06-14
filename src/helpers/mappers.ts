@@ -1,4 +1,6 @@
+import { DTO } from "src/tanks/tank/dto/interface";
 import { TankDto } from "src/tanks/tank/dto/tanks.dto";
+import { TurretDto } from "src/tanks/tank/dto/turret.dto";
 import { TankEntity } from "src/tanks/tank/entities/tanks.entity";
 import { TankPrototype } from "src/tanks/tank/tank.prototype";
 
@@ -17,21 +19,38 @@ export class Mapper {
     }
 
     public static entityToDto(e: TankEntity): TankDto {
-        const result: TankDto = new TankDto();
-
-        //TODO: loop through field of entity and copy it to dto
+        let result: TankDto = new TankDto();
+      
         result.name = e.name;
-        
+        result.gun = {...e.gun};
+
         return result;
     }
-
-    public static dtoToEntity(dto: TankDto): TankEntity {
-        const result: TankEntity = new TankEntity();
-
-        //TODO: loop through field of dto and copy it to entity 
-        result.name = dto.name;
+      
+    public static async dtoToEntity(dto: TankDto): Promise<TankEntity> {
+        return new Promise((resolve, reject) => {
+            try {
+                let result: TankEntity = new TankEntity();
         
-        return result;
-        
+                result.name = dto.name;
+                result.gun = {...dto.gun};
+                result.turret = {...dto.turret};
+                return resolve(result);                        
+            } catch (error) {
+                return reject(error);
+            }
+        })
     }
+
+    public static objectToDto(obj: any): any {
+        const dto: DTO = Object.create({});
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              let k = key.substring(1);
+              dto[k] = obj[k];
+            }
+        }
+        return dto;
+    }
+
 }

@@ -1,17 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { log } from 'console';
-import { GermanFactory } from 'src/tanks/factories/nazi.factory';
-import { SovietFactory } from 'src/tanks/factories/soviet.factory';
 import { TankDto } from 'src/tanks/tank/dto/tanks.dto';
 import { TankEntity } from 'src/tanks/tank/entities/tanks.entity';
 import { AngarRepository } from './angar.repository';
-import { TankFactory } from 'src/tanks/factories/tank.factory';
 import { Mapper } from 'src/helpers/mappers';
+
+import { 
+  GermanFactory,
+  SovietFactory,
+  JapaneseFactory,
+  AmericanFactory,
+  BritishFactory,
+  TankFactory 
+} from 'src/tanks/factories';
+
 
 @Injectable()
 export class AngarService {
   private readonly NaziFactory: GermanFactory;
   private readonly UssrFactory: SovietFactory;
+  private readonly JapanFactory: JapaneseFactory;
+  private readonly UsaFactory: AmericanFactory;
+  private readonly UkFactory: BritishFactory;
+  
   private readonly countryToFactory: Map<string, TankFactory>;
 
   /* PUBLIC FIELDS */
@@ -36,7 +47,7 @@ export class AngarService {
 
   public async create(country: string, tank: string): Promise<TankEntity> {
     let result: TankDto;
-    
+
     let countryToFactory = this.countryToFactory.get(country);
     result = this.buildTank(countryToFactory, tank);
     
@@ -71,6 +82,9 @@ export class AngarService {
 
     result.set("GERMANY", this.NaziFactory);
     result.set("USSR", this.UssrFactory);
+    result.set("JAPAN", this.JapanFactory);
+    result.set("USA", this.UsaFactory);
+    result.set("UK", this.UkFactory);
 
     return result;
   }

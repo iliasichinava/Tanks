@@ -1,6 +1,6 @@
-import { GunDto } from "./dto/gun.dto";
-import { TurretDto } from "./dto/turret.dto";
+import { Mapper } from "src/helpers/mappers";
 import { Gun, Turret } from "./parts";
+import { GunDto, TurretDto } from "./dto";
 
 export class TankPrototype {
   private name: string;
@@ -15,26 +15,12 @@ export class TankPrototype {
   }
 
   public addGun(gun: Gun): this {
-    const dto: GunDto = new GunDto();
-    dto.calibre = gun.calibre;
-    dto.range = gun.range;
-    dto.rate = gun.rate;
-    dto.ammo = gun.ammo;
-
-    this.gun = dto;
-
+    this.gun = Mapper.objectToDto(gun);
     return this;
   } 
 
   public addTurret(turret: Turret): this {
-    const dto: TurretDto = new TurretDto();
-    dto.rotationSpeed = turret.rotationSpeed;
-    dto.elevation = turret.elevation;
-    dto.armor = turret.armor;
-    dto.stabilization = turret.stabilization;
-
-    this.turret = dto;
-
+    this.turret = Mapper.objectToDto(turret);
     return this;
   }
 
